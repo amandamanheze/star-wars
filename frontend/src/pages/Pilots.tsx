@@ -106,16 +106,18 @@ const Pilots: React.FunctionComponent = () => {
             </div>
           ))}
         </div>
-        <div className="pt-9">
-          <Pagination
-            className="pagination"
-            align="center"
-            current={currentPage}
-            total={pilots.length}
-            pageSize={itemsPerPage}
-            onChange={handlePageChange}
-          />
-        </div>
+        {pilots.length > 0 && (
+          <div className="pt-9">
+            <Pagination
+              className="pagination"
+              align="center"
+              current={currentPage}
+              total={pilots.length}
+              pageSize={itemsPerPage}
+              onChange={handlePageChange}
+            />
+          </div>
+        )}
         {editingPilot && (
           <EditForm item={editingPilot} onSave={handleSave} onCancel={() => setEditingPilot(null)} />
         )}

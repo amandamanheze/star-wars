@@ -106,16 +106,18 @@ const Starships: React.FunctionComponent = () => {
             </div>
           ))}
         </div>
-        <div className="pt-9">
-          <Pagination
-            className="pagination"
-            align="center"
-            current={currentPage}
-            total={ships.length}
-            pageSize={itemsPerPage}
-            onChange={handlePageChange}
-          />
-        </div>
+        {ships.length > 0 && (
+          <div className="pt-9">
+            <Pagination
+              className="pagination"
+              align="center"
+              current={currentPage}
+              total={ships.length}
+              pageSize={itemsPerPage}
+              onChange={handlePageChange}
+            />
+          </div>
+        )}
         {editingStarship && (
           <EditForm item={editingStarship} onSave={handleSave} onCancel={() => setEditingStarship(null)} />
         )}
