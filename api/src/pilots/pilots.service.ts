@@ -4,6 +4,7 @@ import { UpdatePilotDto } from './dto/update-pilot.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Pilot } from './entities/pilot.entity';
+import { unlink } from 'fs/promises';
 
 @Injectable()
 export class PilotsService {
@@ -20,19 +21,26 @@ export class PilotsService {
   }
 
   findAll(): Promise<Pilot[]> {
-    return this.pilotsRepository.find();
+    return this.pilotsRepository.find({
+      order: {
+        name: 'ASC',
+      },
+    });
   }
 
   findOne(id: number): Promise<Pilot | null> {
     return this.pilotsRepository.findOneBy({ id });
   }
 
-  async update(id: number, updatePilotDto: UpdatePilotDto): Promise<Pilot | null> {
+  async update(id: number, updatePilotDto: UpdatePilotDto): Promise<void> {
     await this.pilotsRepository.update(id, updatePilotDto);
-    return this.pilotsRepository.findOneBy({ id });
   }
 
   async remove(id: number): Promise<void> {
+    const pilot = await this.pilotsRepository.findOneBy({ id });
+    if (pilot && pilot.image) {
+      await unlink(pilot.image).catch(err => console.error('Error removing image:', err));
+    }
     await this.pilotsRepository.delete(id);
   }
 }

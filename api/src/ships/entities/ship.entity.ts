@@ -8,6 +8,6 @@ export class Ship {
   @Column()
   name: string;
 
-  @Column('bytea')
-  image: Buffer;
+  @Column({ nullable: true })
+  image: string;
 }

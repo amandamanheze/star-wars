@@ -5,11 +5,15 @@ import { ShipsModule } from './ships/ships.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PilotsModule } from './pilots/pilots.module';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+    }),
+    MulterModule.register({
+      dest: './uploads',
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -28,16 +32,4 @@ import { PilotsModule } from './pilots/pilots.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {
-  constructor() {
-    // Log das variáveis de ambiente
-    console.log({
-      host: process.env.DB_HOST,
-      port: process.env.DB_PORT,
-      username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_DATABASE,
-    });
-    console.log('Type of DB_PASSWORD:', typeof process.env.DB_PASSWORD);
-  }
-}
+export class AppModule {}
