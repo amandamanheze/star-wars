@@ -10,6 +10,6 @@ export class CreateShipDto {
     @IsNotEmpty()
     name: string;
   
-    @IsNotEmpty()
-    image: Buffer;
+    @IsString()
+    image: string;
 }

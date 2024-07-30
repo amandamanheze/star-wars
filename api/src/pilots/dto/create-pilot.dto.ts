@@ -1,5 +1,4 @@
 import {
-  IsArray,
     IsNotEmpty,
     IsString,
     MinLength,
@@ -11,6 +10,6 @@ import {
     @IsNotEmpty()
     name: string;
   
-    @IsNotEmpty()
-    image: Buffer;
+    @IsString()
+    image: string;
   }
