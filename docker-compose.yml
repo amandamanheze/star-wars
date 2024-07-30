@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: ./api
+    ports:
+      - "8009:8009"
+    volumes:
+      - ./backend:/app
+    environment:
+      - NODE_ENV=development
+    env_file:
+      - .env
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./frontend:/app
+    environment:
+      - NODE_ENV=development
+    env_file:
+      - .env
