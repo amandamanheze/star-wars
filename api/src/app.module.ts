@@ -22,7 +22,7 @@ import { MulterModule } from '@nestjs/platform-express';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
-      ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false,
+      ssl: { rejectUnauthorized: false },
       autoLoadEntities: true,
       synchronize: true,
     }),
